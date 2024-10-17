@@ -1,4 +1,4 @@
-import { USER_TYPE } from "../enums/user_type.js"
+import { USER_TYPE } from '../enums/user_type.js'
 
 export interface IUser {
   id?: string
@@ -7,8 +7,6 @@ export interface IUser {
   lastName: string
   email: string
   province: string
-  password?: string,
+  password?: string
   role?: USER_TYPE
 }
-
-

@@ -8,7 +8,7 @@ export default class Wonder extends BaseModel {
   @column({ isPrimary: true })
   declare id: string
 
-  @column({isPrimary: true})
+  @column({ isPrimary: true })
   declare zwid: string
 
   @column()
@@ -28,5 +28,4 @@ export default class Wonder extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
-
 }

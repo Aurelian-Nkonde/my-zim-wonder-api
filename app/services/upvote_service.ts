@@ -5,14 +5,19 @@ import generateUniqueId from '../utils/generateUniqueId.js'
 
 export default class UpvoteService {
   Create(data: IUpvote) {
-    const zwid = generateUniqueId(ID_TYPES.UPVOTE)
-    const upvote = new Upvote().fill({
-      zwid: zwid,
-      userid: data.userid,
-      wonderid: data.wonderid,
-      value: data.value,
-    })
-    return upvote.save()
+    const upvoteExistance = Upvote.findBy({ wonderid: data.wonderid, userid: data.userid })
+    if (!upvoteExistance) {
+      const zwid = generateUniqueId(ID_TYPES.UPVOTE)
+      const upvote = new Upvote().fill({
+        zwid: zwid,
+        userid: data.userid,
+        wonderid: data.wonderid,
+        value: data.value,
+      })
+      return upvote.save()
+    }
+    console.error('Upvote already exists')
+    throw new Error('Upvote already exists')
   }
 
   async Update(id: string, value: boolean) {

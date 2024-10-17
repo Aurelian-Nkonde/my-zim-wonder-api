@@ -1,6 +1,7 @@
 // import type { HttpContext } from '@adonisjs/core/http'
 
 import UpvoteService from '#services/upvote_service'
+import { createUpvoteValidator, updateUpvoteValidator } from '#validators/upvote'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 
@@ -8,15 +9,15 @@ import { HttpContext } from '@adonisjs/core/http'
 export default class UpvotesController {
   constructor(private upvoteService: UpvoteService) {}
 
-  create({ request }: HttpContext) {
-    const data = request.only(['userid', 'wonderid', 'value'])
-    return this.upvoteService.Create({ ...data })
+  async create({ request }: HttpContext) {
+    const payload = await request.validateUsing(createUpvoteValidator)
+    return this.upvoteService.Create({ ...payload })
   }
 
-  update({ request, params }: HttpContext) {
+  async update({ request, params }: HttpContext) {
     const id = params.id
-    const data = request.only(['value'])
-    return this.upvoteService.Update(id, data.value)
+    const payload = await request.validateUsing(updateUpvoteValidator)
+    return this.upvoteService.Update(id, payload.value)
   }
 
   getAllUpvotes() {
