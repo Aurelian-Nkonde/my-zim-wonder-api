@@ -4,8 +4,9 @@ import { IUpvote } from '../Interfaces/upvote.js'
 import generateUniqueId from '../utils/generateUniqueId.js'
 
 export default class UpvoteService {
-  Create(data: IUpvote) {
-    const upvoteExistance = Upvote.findBy({ wonderid: data.wonderid, userid: data.userid })
+  async Create(data: IUpvote) {
+    const upvoteExistance = await Upvote.findBy({ wonderid: data.wonderid, userid: data.userid })
+    console.log(upvoteExistance)
     if (!upvoteExistance) {
       const zwid = generateUniqueId(ID_TYPES.UPVOTE)
       const upvote = new Upvote().fill({
@@ -47,10 +48,12 @@ export default class UpvoteService {
   }
 
   async WonderPositiveUpvoteCount(id: string) {
-    return (await Upvote.findManyBy('wonderid', id)).filter((u) => u.value === true).length
+    let result = await Upvote.findManyBy({wonderid: id, value:  true})
+    return result.length
   }
 
   async WonderNegetiveUpvoteCount(id: string) {
-    return (await Upvote.findManyBy('wonderid', id)).filter((u) => u.value === false).length
+    let result =  await Upvote.findManyBy({wonderid: id, value: false})
+    return result.length
   }
 }

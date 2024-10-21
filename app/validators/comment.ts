@@ -10,6 +10,6 @@ export const createCommentValidator = vine.compile(
 
 export const updateCommentValidator = vine.compile(
   vine.object({
-    mesage: vine.string().trim().minLength(3).maxLength(200),
+    message: vine.string().trim().minLength(3).maxLength(200),
   })
 )

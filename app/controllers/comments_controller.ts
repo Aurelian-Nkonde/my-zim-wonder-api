@@ -31,7 +31,7 @@ export default class CommentsController {
   async updateComment({ request, params }: HttpContext) {
     const id = params.id
     const payload = await request.validateUsing(updateCommentValidator)
-    return this.commentService.Update(id, payload.mesage)
+    return this.commentService.Update(id, payload.message)
   }
 
   AllUserComments({ params }: HttpContext) {

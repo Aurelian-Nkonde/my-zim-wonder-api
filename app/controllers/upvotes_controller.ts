@@ -33,14 +33,15 @@ export default class UpvotesController {
     return this.upvoteService.UpvotesCount()
   }
 
-  getUserAllUpvotesCount({ request }: HttpContext) {
-    const data = request.only(['userid'])
-    return this.upvoteService.UserAllUpvotesCount(data.userid)
+  getUserAllUpvotesCount({ params }: HttpContext) {
+    const data = params.id
+    console.log("id: ", data)
+    return this.upvoteService.UserAllUpvotesCount(data)
   }
 
-  getWonderUpvoteCount({ request }: HttpContext) {
-    const data = request.only(['wonderid'])
-    return this.upvoteService.WonderUpvoteCount(data.wonderid)
+  getWonderUpvoteCount({ params }: HttpContext) {
+    const data = params.id
+    return this.upvoteService.WonderUpvoteCount(data)
   }
 
   getWonderPositiveCount({ params }: HttpContext) {
